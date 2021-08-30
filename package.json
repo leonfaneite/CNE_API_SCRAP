@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "abort-controller": "^3.0.0",
+    "cheerio": "^0.20.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "puppeteer": "^10.2.0",
+    "scrape-it": "^5.3.1"
+  }
+}
