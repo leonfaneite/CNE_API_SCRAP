@@ -1,13 +1,14 @@
 # CNE_API_SCRAP
 Api de consulta del CNE , con obtencion de Datos mediante Scrappy
 
+
+
+
+
 use it: 
+- npm install package.json
 
-
-
-# npm install package.json
-
-# node cneFetch.js 
+- node cneFetch.js 
 
  in navigator:
 
