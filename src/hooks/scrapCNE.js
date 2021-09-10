@@ -1,10 +1,8 @@
-const AbortController = require("abort-controller")
-
 const cheerio = require("cheerio")
 const fetch = require("node-fetch")
-
-
 var express = require('express')
+const { response } = require("express")
+
 var router = express.Router()   
 var app = express()               
 
@@ -17,35 +15,28 @@ router.get('/', function(req, res) {
 })
 
 
-
-
-//const URL = "http://localhost:3001";
-
 // function to get the raw data
-function getRawData (URL){
+function getRawData (URL, retryLimit, retryCount) {
+    retryLimit = retryLimit || Number.MAX_VALUE;
+    retryCount = Math.max(retryCount || 0, 0);
+    return fetch(URL).then(function (res) {
+        console.log(res.status);
+        if (res.status !== 200 && retryCount < retryLimit) {
+            console.log("There was an error processing your fetch request. We are trying again.");
+            return fetchWithRetry(url, retryLimit, retryCount + 1);
+        } else {
+            return res.text();
+        }
+    });
+}
+
+getRawData(URL, 5, 0 ).then((data)=> {
+    return data
+}).catch(function (err) {
+    console.log(`There was a problem with the fetch operation: ${err.message}`);
+});
    
-const controller = new AbortController();
-
-
-const timeout = setTimeout(
-  () => {controller.abort()},
-  5000,
-);
-
-    
-  return fetch(URL, {signal: controller.signal})
-
-      
-      .then((response) => response.text())
-      .then((data) => {
-       
-         return data;
-      }, 
-      
-      );
-};
-
-
+   
 
 router.get('/:cedula', function(req, res) {
    
@@ -58,7 +49,7 @@ const URL = `http://www.cne.gob.ve/web/registro_electoral/ce.php?nacionalidad=V&
 
 
 
-const cne_data = await getRawData(URL);
+const cne_data = await getRawData(URL,5,0);
 
 
 const $ = cheerio.load(cne_data);
