@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# CNE web Scrapping
 
 its a React project , content a web scrap to site cne.org.ve
 
