@@ -10,7 +10,7 @@ const { Search } = Input;
 export default function Consult(){
 
   const [searchVotante , setSearchVotante] = useState("")
-  const [data , setData] = useState("")
+  const [data , setData] = useState({})
   const [modal, setModal] = useState(false)
 
 //////////////////////////////////////////////////////////////////////
@@ -22,10 +22,10 @@ export default function Consult(){
               console.log("buscando...")
               const res = await  fetch(url);
               const json = await res.json();
-              
-              
+                            
               if(json.lenght != 0){
-              setData(json);
+              const jsons = JSON.parse(json)
+              setData(jsons);
               openModal()
               setSearchVotante("")
 
@@ -84,7 +84,7 @@ onSearch={userFetch} />
     data={data}
     modal = {modal}
     closedModal ={closedModal}
-    />)
+    />
 
 
 

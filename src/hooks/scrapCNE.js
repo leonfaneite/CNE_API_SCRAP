@@ -93,6 +93,8 @@ if (re_22 != undefined && re_22.length > 40)  {
 
 const datosf = JSON.stringify(datos)
 
+console.log(typeof(datosf))
+
 res.json(datosf)
 
 })();
