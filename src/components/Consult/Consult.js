@@ -1,47 +1,36 @@
-import React ,{useState, useEffect}from "react"
-import JSSoup from 'jssoup'; 
-import cneFetch  from "../../hooks/cneFetch";
+import React ,{useState}from "react"
 import {Input ,Button} from "antd"
 import "./Consult.scss"
 import {API_URL} from "../../utils/Constants"
 
+import DatosModal from "../DatosModal"
+
 const { Search } = Input;
 
+export default function Consult(){
 
-
-
-export default function Consult(props){
-
-  
-  
-  
   const [searchVotante , setSearchVotante] = useState("")
   const [data , setData] = useState("")
+  const [modal, setModal] = useState(false)
 
-////////////////////////////////////////////////////////////////////////////////
-
-
-  
-
-  
-    //useEffect(()=>{
-//
-    //  userFetch()
-//
-    //},[])
-
+//////////////////////////////////////////////////////////////////////
       
      const  userFetch = async()=>{
 
-        const url = `${API_URL}${searchVotante}`
+        const  url = `${API_URL}${searchVotante}`
           try{
               console.log("buscando...")
               const res = await  fetch(url);
               const json = await res.json();
-              setData(json);
-              console.log(data)
-              setSearchVotante("")
               
+              
+              if(json.lenght != 0){
+              setData(json);
+              openModal()
+              setSearchVotante("")
+
+              }
+
           } catch(err){
 
               console.log(err);
@@ -62,26 +51,43 @@ const handleChange = e =>{
 }
 
 
+
+const openModal = ()=>{
+
+  setModal(true)
+
+}
+
+const closedModal = ()=>{
+  setModal(false)
+}
 /////////////////////////////////////////////////////////////////////////////////7
 
 
-   
+
+
   return (
 
 <>
-
 <h1>Consultar Cedula</h1>
- 
-         
-<Search placeholder="input search text"  value={searchVotante}  onChange={handleChange} onSearch={userFetch}  />
-  
 
- </>
-        
+<Search placeholder="input search text"  
+
+className="Button"
+style={{ width: 300 }}
+value={searchVotante}
+onChange={handleChange} 
+onSearch={userFetch} />
+
+<DatosModal
+    
+    data={data}
+    modal = {modal}
+    closedModal ={closedModal}
+    />)
 
 
-    )
+
+
+</>)
 }
-
-
-
