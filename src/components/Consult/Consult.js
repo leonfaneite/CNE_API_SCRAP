@@ -73,11 +73,13 @@ const closedModal = ()=>{
 
 <Search placeholder="input search text"  
 
+maxLength={8}
 className="Button"
 style={{ width: 300 }}
 value={searchVotante}
 onChange={handleChange} 
 onSearch={userFetch} />
+
 
 <DatosModal
     

@@ -20,7 +20,7 @@ export default function DatosModal(props){
 return(
 
 <Modal
-    title="Datos del Votante"
+    
     className="modal-video"
     visible={modal}
     footer={[
@@ -30,6 +30,7 @@ return(
      
       ]}
     >
+        <h1>Informacion del Elector</h1>
 <p><p><b>Cedula: </b><span>{data.Cedula}</span></p>
 <p><b>Nombre :</b> <span>{data.Nombre}</span></p>
 <p><b>Estado: </b><span>{data.Estado}</span></p>
